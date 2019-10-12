@@ -1,0 +1,70 @@
+{
+  "name": "electron-builder-test",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "build": "yarn compile && electron-builder",
+    "build:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.9"
+  },
+  "devDependencies": {
+    "electron": "^5.0.4",
+    "electron-builder": "^20.44.4",
+    "electron-webpack": "^2.1.2",
+    "webpack": "^4.28.3"
+  },
+  "resolutions": {
+    "upath": "^1.0.5"
+  },
+  "build": {
+    "productName": "electronPackTest",
+    "appId": "org.simulatedgreg.electron-builder-start",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/electron/**/*",
+      "node_modules/",
+      "package.json"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icons/icon.ico",
+      "uninstallerIcon": "build/icons/icon.ico",
+      "installerHeaderIcon": "build/icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "electronPackTest",
+      "include": "build/script/installer.nsh"
+    },
+    "dmg": {
+      "contents": [{
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "icon": "build/icons/icon.ico",
+      "target": [{
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }]
+    }
+  }
+}
