@@ -6,6 +6,7 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "build": "yarn compile && electron-builder",
+    "build1": "electron-builder",
     "build:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "dependencies": {

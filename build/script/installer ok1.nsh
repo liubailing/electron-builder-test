@@ -28,14 +28,7 @@
   ; Crypto::HashData SHA1 "IPAddresses: $R2 ; MACAddress $R1; HostName $R0  $EXEDIR\intall.bat; "
   ; Pop $R3
   ;Crypto::HashData SHA1 "{type:2,data:{cname:'$R0',mid:'$R1',ip:'$R2',os:'',cpu:'4',mem:'',osname:'',ver:'8.0.1'}}"
-
-  NsisCrypt::Base64Encode "$R3"
-  Pop $R4 
-
-  NsisCrypt::Base64Encode "Test string"
- Pop $R4 
-
-  Messagebox MB_OK 'Base64Encode $R4'
+   Messagebox MB_OK '$R3|$1'
 
   inetc::post {type=1}  http://compass.skieer.com/octopus/tracking1  "$EXEDIR\intall.log" /END
 
