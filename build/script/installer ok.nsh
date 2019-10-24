@@ -12,7 +12,7 @@
 
 
 
-  ;ShellExecAsUser::ShellExecAsUser open http://www.google.com/
+  ;ShellExecAsUser::ShellExecAsUser open https://www.bazhuayu.com/uninstallquestionaire?data=NDg6NEQ6N0U6QTg6RDA6RUM=&version=v8.0.1
   
 !macroend
 
