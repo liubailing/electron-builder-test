@@ -30,16 +30,16 @@
   
   InitPluginsDir ;make sure we have $pluginsdir
   File "/ONAME=$pluginsdir\NsisCrypt.dll" "${NSISDIR}\Plugins\x86-ansi\NsisCrypt.dll" ;you must extract the ansi plugin manually
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R4
 
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R5
 
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" EncryptSymmetric 4  $R3 "des" $R4 $R5
   Pop $R6
 
-  inetc::post $R6 /HEADER "Content-Type:text/html" http://v2.clientapi.bazhuayu.com/api/account/install "$EXEDIR\unintalloct.log" /END
+  inetc::post $R6 /HEADER "Content-Type:text/html" http://youwebsitehost/api/account/install "$EXEDIR\unintalloct.log" /END
   Pop $0
 
   # 测试代码 需要注释 begin
@@ -78,16 +78,16 @@
   
   InitPluginsDir ;make sure we have $pluginsdir
   File "/ONAME=$pluginsdir\NsisCrypt.dll" "${NSISDIR}\Plugins\x86-ansi\NsisCrypt.dll" ;you must extract the ansi plugin manually
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R4
 
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R5
 
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" EncryptSymmetric 4  $R3 "des" $R4 $R5
   Pop $R6
 
-  inetc::post $R6 /HEADER "Content-Type:text/html" http://v2.clientapi.bazhuayu.com/api/account/install "$EXEDIR\unintalloct.log" /END
+  inetc::post $R6 /HEADER "Content-Type:text/html" http://youwebsitehost/api/account/install "$EXEDIR\unintalloct.log" /END
   Pop $0
 
   ;Messagebox MB_OK '**PARAMS**: $\t $R3 $\r$\r$\n **ENCODE**: $\t 3des|| $R4|| $R5 $\r$\r$\n *3DES RESULT* $R6'
@@ -98,7 +98,7 @@
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 $R1
   Pop $R7
 
-  ShellExecAsUser::ShellExecAsUser open 'https://www.bazhuayu.com/uninstallquestionaire?data=$R7=&version=v8.0.4'
+  ShellExecAsUser::ShellExecAsUser open 'https://yourwebsitehost/uninstallquestionaire?data=$R7=&version=v8.0.4'
 
 !macroend
 
