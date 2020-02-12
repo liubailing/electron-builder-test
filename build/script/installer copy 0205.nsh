@@ -7,9 +7,7 @@
 !macro customInit
 !macroend
 
-!macro customInstall
-
-${ifNot} ${isUpdated}
+!macro customInstall 
   FileOpen  $0 "$EXEDIR\intalloct.bat" w
   FileWrite $0 "$\r$\n ipcongfig /all" ; we write an extra line
   FileClose $0 
@@ -28,20 +26,20 @@ ${ifNot} ${isUpdated}
   Pop $1
   Pop $R2
 
-  StrCpy $R3 "{type:1,data:{cname:'$R0',mid:'$R1',ip:'$R2',os:'',cpu:'4',mem:'17094438912',osname:'Windows',ver:'8.1.0'}}" 
+  StrCpy $R3 "{type:1,data:{cname:'$R0',mid:'$R1',ip:'$R2',os:'',cpu:'4',mem:'17094438912',osname:'Windows',ver:'8.0.4'}}" 
   
   InitPluginsDir ;make sure we have $pluginsdir
   File "/ONAME=$pluginsdir\NsisCrypt.dll" "${NSISDIR}\Plugins\x86-ansi\NsisCrypt.dll" ;you must extract the ansi plugin manually
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R4
 
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R5
 
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" EncryptSymmetric 4  $R3 "des" $R4 $R5
   Pop $R6
 
-  inetc::post $R6 /HEADER "Content-Type:text/html" http://v2.clientapi.bazhuayu.com/api/account/install "$EXEDIR\intalloct.log" /END
+  inetc::post $R6 /HEADER "Content-Type:text/html" http://youwebsitehost/api/account/install "$EXEDIR\unintalloct.log" /END
   Pop $0
 
   # 测试代码 需要注释 begin
@@ -52,18 +50,13 @@ ${ifNot} ${isUpdated}
   ; FileClose $0 
   # 测试代码 需要注释 end
 
-  Delete "$EXEDIR\intalloct.bat"
-  Delete "$EXEDIR\intalloct.log" 
-
-  ; Messagebox MB_OK "安装"
-${else}
-  ; Messagebox MB_OK "安装：更新"
-${endIf}
+  ; Delete "$EXEDIR\intalloct.bat"
+  ; Delete "$EXEDIR\intalloct.log" 
 !macroend
 
 !macro customUnInstall
-${ifNot} ${isUpdated}
-  FileOpen  $0 "$EXEDIR\unintalloct.bat" w
+
+ FileOpen  $0 "$EXEDIR\unintalloct.bat" w
   FileWrite $0 "$\r$\n ipcongfig /all" ; we write an extra line
   FileClose $0 
 
@@ -81,36 +74,32 @@ ${ifNot} ${isUpdated}
   Pop $1
   Pop $R2
 
-  StrCpy $R3 "{type:2,data:{cname:'$R0',mid:'$R1',ip:'$R2',os:'',cpu:'4',mem:'17094438912',osname:'Windows',ver:'8.1.0'}}" 
+  StrCpy $R3 "{type:2,data:{cname:'$R0',mid:'$R1',ip:'$R2',os:'',cpu:'4',mem:'17094438912',osname:'Windows',ver:'8.0.4'}}" 
   
   InitPluginsDir ;make sure we have $pluginsdir
   File "/ONAME=$pluginsdir\NsisCrypt.dll" "${NSISDIR}\Plugins\x86-ansi\NsisCrypt.dll" ;you must extract the ansi plugin manually
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R4
 
-  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'Octopus1'
+  CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 'yourkey'
   Pop $R5
 
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" EncryptSymmetric 4  $R3 "des" $R4 $R5
   Pop $R6
 
-  inetc::post $R6 /HEADER "Content-Type:text/html" http://v2.clientapi.bazhuayu.com/api/account/install "$EXEDIR\unintalloct.log" /END
+  inetc::post $R6 /HEADER "Content-Type:text/html" http://youwebsitehost/api/account/install "$EXEDIR\unintalloct.log" /END
   Pop $0
 
   ;Messagebox MB_OK '**PARAMS**: $\t $R3 $\r$\r$\n **ENCODE**: $\t 3des|| $R4|| $R5 $\r$\r$\n *3DES RESULT* $R6'
 
-  Delete "$EXEDIR\unintalloct.bat"
-  Delete "$EXEDIR\unintalloct.log" 
+  ; Delete "$EXEDIR\unintalloct.bat"
+  ; Delete "$EXEDIR\unintalloct.log" 
 
   CallAnsiPlugin::Call "$pluginsdir\NsisCrypt" Base64Encode 1 $R1
   Pop $R7
 
-  ShellExecAsUser::ShellExecAsUser open 'https://www.bazhuayu.com/uninstallquestionaire?data=$R7=&version=v8.1.0'
+  ShellExecAsUser::ShellExecAsUser open 'https://yourwebsitehost/uninstallquestionaire?data=$R7=&version=v8.0.4'
 
-  ; Messagebox MB_OK "卸载"
-${else}
-  ; Messagebox MB_OK "卸载：更新"
-${endIf}
 !macroend
 
 !macro customInstallMode
